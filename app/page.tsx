@@ -1,6 +1,8 @@
+import { Tapestry } from "next/font/google";
 import HeroSection from "./components/HeroSection";
 import VideoSection from "./components/videoSection";
 import WhatWeDov2 from "./components/WhatWeDov2";
+import TapestrySection from "./components/RunningTextSection";
 
 export default function Home() {
   return (
@@ -8,6 +10,7 @@ export default function Home() {
       <HeroSection />
       <WhatWeDov2 />
       <VideoSection />
+      <TapestrySection />
     </div>
   );
 }

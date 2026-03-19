@@ -35,3 +35,8 @@ body {
 .animate-zoom {
   animation: zoom 5s ease-in-out forwards;
 }
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
