@@ -1,6 +1,4 @@
-import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
-import WhatWeDo from "./components/WhatWeDo";
 import WhatWeDov2 from "./components/WhatWeDov2";
 
 export default function Home() {

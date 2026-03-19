@@ -53,10 +53,12 @@ export default function NavItem({ label, items }: NavItemProps) {
                                 transition: `transform 0.4s ease ${i * 60}ms, opacity 0.4s ease ${i * 60}ms, color 0.2s ease`,
                             }}
                         >
-                            <span className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-2">
-                                {item.label}
+                            <span className="w-fit flex flex-col transition-transform duration-300 ease-out group-hover:translate-x-2">
+                                <p>
+                                    {item.label}
+                                </p>
+                                <span className="absolute h-px left-0 bottom-[-.5] bg-[#F0E4AF] w-0 transition-all duration-300 ease-in-out group-hover:w-full" />
                             </span>
-                            <span className="absolute bottom-2 left-5 h-px bg-[#F0E4AF] w-0 transition-all duration-300 ease-in-out group-hover:w-[calc(100%-40px)]" />
                         </a>
                     ))}
                 </div>

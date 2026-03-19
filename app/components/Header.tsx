@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import NavItem, { NavItemProps } from './NavItem'
 
 const Header = () => {
@@ -81,15 +81,17 @@ const Header = () => {
                 ${scrolled ? "bg-[#191A11] shadow-md" : "bg-transparent"}
             `}>
                 <div className='flex items-center justify-between w-full'>
-                    <div className='text-3xl md:text-5xl'>Monique</div>
+                    <div className='flex max-w-xl justify-between items-center w-full'>
+                        <div className='text-3xl md:text-5xl'>Monique</div>
 
-                    {/* Desktop nav */}
-                    <div className='hidden md:flex cursor-pointer items-center space-x-6'>
-                        {
-                            navItems.map((item, i) => (
-                                <NavItem label={item.title} key={i} items={item.items} />
-                            ))
-                        }
+                        {/* Desktop nav */}
+                        <div className='hidden md:flex cursor-pointer items-center space-x-6'>
+                            {
+                                navItems.map((item, i) => (
+                                    <NavItem label={item.title} key={i} items={item.items} />
+                                ))
+                            }
+                        </div>
                     </div>
 
                     {/* Desktop button */}
