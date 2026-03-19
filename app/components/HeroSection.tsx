@@ -13,7 +13,7 @@ const HeroSection = () => {
                 className="object-cover animate-zoom overflow-hidden"
                 priority
             />
-            <div className="relative z-50 pt-10">
+            <div className="relative z-60 pt-10">
                 <Header />
             </div>
             <div className="relative z-10">
