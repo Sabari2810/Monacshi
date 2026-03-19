@@ -9,8 +9,11 @@ export default function HeroText() {
         const letters = gsap.utils.toArray<HTMLElement>(
             containerRef.current?.querySelectorAll(".letter") ?? []
         );
+
+        const isMobile = window.innerWidth < 768;
+
         gsap.fromTo(letters,
-            { y: "130%" },
+            { y: isMobile ? "200%" : "130%" },
             {
                 y: "0%",
                 duration: 1.5,
@@ -26,9 +29,9 @@ export default function HeroText() {
             <span
                 key={i}
                 className="inline-block"
-                style={{ 
-                    overflow: "clip", 
-                    overflowClipMargin: "30px", 
+                style={{
+                    overflow: "clip",
+                    overflowClipMargin: "30px",
                     padding: "0 1px 8px",
                     marginBottom: "-8px"
                 }}
@@ -45,7 +48,7 @@ export default function HeroText() {
     return (
         <div ref={containerRef}>
             <p className="
-                text-4xl
+                text-5xl
                 sm:text-6xl
                 md:text-7xl
                 lg:text-8xl
@@ -58,7 +61,7 @@ export default function HeroText() {
                         {splitLetters(" for", "italic")}
                     </span>
                 </span>
-                <span className="flex justify-end">
+                <span className="flex lg:justify-end xl:justify-start">
                     {splitLetters("ART & HISTORY")}
                 </span>
             </p>

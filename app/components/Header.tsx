@@ -14,21 +14,14 @@ const Header = () => {
             }]
         },
         {
-            title: "Outfits",
+            title: "Custom Outfits",
             items: [{
                 label: "abc",
                 link: "abc"
             }]
         },
         {
-            title: "Outfits",
-            items: [{
-                label: "abc",
-                link: "abc"
-            }]
-        },
-        {
-            title: "Outfits",
+            title: "Blog",
             items: [{
                 label: "abc",
                 link: "abc"
@@ -94,7 +87,7 @@ const Header = () => {
                     <div className='hidden md:flex cursor-pointer items-center space-x-6'>
                         {
                             navItems.map((item, i) => (
-                                <NavItem label={item.title} items={item.items} />
+                                <NavItem label={item.title} key={i} items={item.items} />
                             ))
                         }
                     </div>
