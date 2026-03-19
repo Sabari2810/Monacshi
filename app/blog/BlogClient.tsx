@@ -1,0 +1,190 @@
+"use client";
+import { useState } from "react";
+import Image from "next/image";
+
+interface Post {
+    id: string;
+    title: string;
+    excerpt: string;
+    image_url: string;
+    date: string;
+    comments_count: number;
+    category: string;
+}
+
+export default function BlogClient({ posts }: { posts: Post[] }) {
+    const [search, setSearch] = useState("");
+    const [activeCategory, setActiveCategory] = useState("");
+
+    const filtered = posts.filter(p => {
+        const matchesSearch =
+            p.title.toLowerCase().includes(search.toLowerCase()) ||
+            p.excerpt?.toLowerCase().includes(search.toLowerCase());
+        const matchesCategory = activeCategory ? p.category === activeCategory : true;
+        return matchesSearch && matchesCategory;
+    });
+
+    const categories = [...new Set(posts.map(p => p.category).filter(Boolean))];
+
+    return (
+        <main className="min-h-screen bg-[#191A11] text-[#F0E4AF]">
+
+            {/* Page header */}
+            <div className="px-6 md:px-16 py-24 border-b border-[#F0E4AF]/10">
+                <h1 className="font-cormorant text-6xl lg:text-8xl leading-none">
+                    The Journal
+                </h1>
+            </div>
+
+            {/* Body */}
+            <div className="flex max-w-6xl m-auto flex-col md:flex-row px-6 md:px-16 py-16 gap-16 items-start">
+
+                {/* LEFT — blog list 70% */}
+                <div className="w-full md:w-[70%] grid grid-cols-1 sm:grid-cols-1 gap-10">
+                    {filtered.length === 0 ? (
+                        <p className="text-[#9A9370] tracking-widest uppercase text-sm col-span-2">
+                            No posts found.
+                        </p>
+                    ) : (
+                        filtered.map((post) => (
+                            <a
+                                key={post.id}
+                                href={`/blog/${post.id}`}
+                                className="group block border border-[#F0E4AF]/10 hover:border-[#F0E4AF]/30 transition-all duration-300"
+                            >
+                                {/* Image on top */}
+                                <div className="relative w-full h-56 overflow-hidden">
+                                    <Image
+                                        src={post.image_url || '/images/item-004.jpg'}
+                                        fill
+                                        alt={post.title}
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                </div>
+
+                                {/* Content below */}
+                                <div className="p-6 space-y-3">
+                                    {post.category && (
+                                        <p className="text-xs tracking-widest uppercase text-[#9A9370]">
+                                            {post.category}
+                                        </p>
+                                    )}
+                                    <h2 className="font-cormorant text-2xl lg:text-3xl leading-snug group-hover:text-white transition-colors duration-300">
+                                        {post.title}
+                                    </h2>
+                                    <p className="text-sm text-[#9A9370] line-clamp-2 leading-relaxed">
+                                        {post.excerpt}
+                                    </p>
+
+                                    {/* Meta */}
+                                    <div className="flex items-center gap-6 text-xs tracking-widest uppercase text-[#9A9370] pt-2 border-t border-[#F0E4AF]/10">
+                                        <span className="pt-3">
+                                            {new Date(post.date).toLocaleDateString('en-US', {
+                                                month: 'long',
+                                                day: 'numeric',
+                                                year: 'numeric'
+                                            })}
+                                        </span>
+                                        <span className="flex items-center gap-2 pt-3">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                                            </svg>
+                                            {post.comments_count} comments
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        ))
+                    )}
+                </div>
+
+                {/* RIGHT — sticky sidebar 30% */}
+                <div className="w-full md:w-[30%] md:sticky md:top-24 space-y-10">
+
+                    {/* Search */}
+                    <div className="space-y-3">
+                        <p className="text-xs tracking-widest uppercase text-[#9A9370]">Search</p>
+                        <div className="relative">
+                            <input
+                                type="text"
+                                value={search}
+                                onChange={e => {
+                                    setSearch(e.target.value);
+                                    setActiveCategory("");
+                                }}
+                                placeholder="Search posts..."
+                                className="w-full bg-transparent border border-[#F0E4AF]/20 px-4 py-3 text-sm text-[#F0E4AF] placeholder:text-[#9A9370] focus:outline-none focus:border-[#F0E4AF]/60 transition-colors duration-300"
+                            />
+                            <svg className="absolute right-4 top-1/2 -translate-y-1/2 text-[#9A9370]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    {/* Categories */}
+                    {categories.length > 0 && (
+                        <div className="space-y-3">
+                            <p className="text-xs tracking-widest uppercase text-[#9A9370]">Categories</p>
+                            <div className="space-y-0">
+                                {categories.map((cat, i) => (
+                                    <button
+                                        key={i}
+                                        onClick={() => {
+                                            setActiveCategory(cat === activeCategory ? "" : cat);
+                                            setSearch("");
+                                        }}
+                                        className={`group flex items-center justify-between w-full border-b border-[#F0E4AF]/10 py-3 text-sm tracking-wide transition-colors duration-200
+                                            ${activeCategory === cat ? "text-white" : "text-[#9A9370] hover:text-white"}
+                                        `}
+                                    >
+                                        <span className="group-hover:translate-x-2 transition-transform duration-300">
+                                            {cat}
+                                        </span>
+                                        <span className="group-hover:text-[#F0E4AF] transition-colors duration-300">
+                                            &#8594;
+                                        </span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Recent posts */}
+                    <div className="space-y-3">
+                        <p className="text-xs tracking-widest uppercase text-[#9A9370]">Recent Posts</p>
+                        <div className="space-y-4">
+                            {posts.slice(0, 4).map(post => (
+                                <a
+                                    key={post.id}
+                                    href={`/blog/${post.id}`}
+                                    className="group flex gap-3 items-start"
+                                >
+                                    <div className="relative w-16 h-12 flex-shrink-0 overflow-hidden">
+                                        <Image
+                                            src={post.image_url || '/images/item-004.jpg'}
+                                            fill
+                                            alt={post.title}
+                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="text-sm font-cormorant italic leading-snug group-hover:text-white transition-colors duration-200">
+                                            {post.title}
+                                        </p>
+                                        <p className="text-xs text-[#9A9370] mt-1">
+                                            {new Date(post.date).toLocaleDateString('en-US', {
+                                                month: 'short',
+                                                day: 'numeric'
+                                            })}
+                                        </p>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    )
+}

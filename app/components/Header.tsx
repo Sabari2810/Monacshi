@@ -22,10 +22,6 @@ const Header = () => {
         },
         {
             title: "Blog",
-            items: [{
-                label: "abc",
-                link: "abc"
-            }]
         },
     ]
 
@@ -44,9 +40,14 @@ const Header = () => {
                     className="group flex items-center justify-between w-full py-4 text-lg font-[open-sans] text-[#F0E4AF] tracking-widest uppercase"
                     onClick={() => setOpen(!open)}
                 >
-                    <span className="group-hover:translate-x-2 transition-transform duration-300">
-                        {item.label}
-                    </span>
+                    { item.items &&
+                        <span className="group-hover:translate-x-2 transition-transform duration-300">
+                            {item.label}
+                        </span>
+                    }
+                    {
+                        item.items === undefined && <a href={item.label.toLowerCase()}>{item.label}</a>
+                    }
                     <span className={`transition-transform duration-300 text-[#F0E4AF]/50 ${open ? "rotate-90" : ""}`}>
                         &#8594;
                     </span>
@@ -54,7 +55,7 @@ const Header = () => {
 
                 {/* Sub items */}
                 <div className={`overflow-hidden transition-all duration-500 ease-in-out ${open ? "max-h-64 opacity-100" : "max-h-0 opacity-0"}`}>
-                    {item.items.map((subItem, i) => (
+                    {item.items && item.items.map((subItem, i) => (
                         <a
                             key={i}
                             href={subItem.link}

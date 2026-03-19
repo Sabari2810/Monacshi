@@ -8,7 +8,7 @@ export interface NavSubItem {
 
 export interface NavItemProps {
     label: string;
-    items: NavSubItem[];
+    items?: NavSubItem[];
 }
 
 export default function NavItem({ label, items }: NavItemProps) {
@@ -22,7 +22,14 @@ export default function NavItem({ label, items }: NavItemProps) {
         >
             {/* Label with underline */}
             <div className="relative cursor-pointer py-2">
-                <span className="text-sm tracking-widest uppercase">{label}</span>
+                {
+                    items &&
+                    <span className="text-sm tracking-widest uppercase">{label}</span>
+                }
+                {
+                    items === undefined &&
+                    <a href={label.toLowerCase()}>{label}</a>
+                }
                 <span
                     className="absolute bottom-0 left-0 h-px bg-current transition-all duration-500 ease-in-out"
                     style={{ width: open ? "100%" : "0%" }}
