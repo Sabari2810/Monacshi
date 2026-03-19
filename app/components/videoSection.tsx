@@ -1,12 +1,14 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 export default function VideoSection() {
     const [open, setOpen] = useState(false);
+    const videoSection = useScrollAnimation();
 
     return (
-        <section className="relative w-full h-[60vw] md:h-screen  overflow-hidden">
+        <section ref={videoSection} className="relative w-full h-[60vw] md:h-screen  overflow-hidden">
             {/* Background image */}
             <Image
                 src="/images/item-004.jpg"
