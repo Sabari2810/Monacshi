@@ -18,11 +18,11 @@ const WhatWeDov2 = () => {
                     </div>
                 </div>
             </div>
-            <div className='grid lg:grid-cols-4 gap-6 relative h-full pt-10 z-50'>
+            <div className='lg:grid space-y-5 lg:space-y-0 lg:grid-cols-4 lg:gap-6 relative h-full pt-10 z-50'>
                 <div className='flex flex-col lg:col-span-2 items-start gap-10 w-fit'>
-                    <p className='text-2xl text-[#9A9370]'>We do our best to implement your ideas into the <br/>project to make it successful and profitable.</p>
+                    <p className='text-xl lg:text-2xl text-[#9A9370]'>We do our best to implement your ideas into the <br className="hidden lg:block"/>project to make it successful and profitable.</p>
                     <div className="flex items-center space-x-4">
-                        <div className='rounded-full border-2 w-12 h-12 flex items-center justify-center shrink-0'>
+                        <div className='rounded-full border-2 w-16 h-16 flex items-center justify-center shrink-0'>
                             M
                         </div>
                         <div>
@@ -33,7 +33,7 @@ const WhatWeDov2 = () => {
                 </div>
                 <div className="lg:col-span-2 text-[#9A9370]">
                     <div className="grid justify-end lg:grid-cols-2 gap-5">
-                        <div className="flex flex-col text-lg space-y-5 lg:space-y-10 lg:col-span-1 items h-full">
+                        <div className="flex flex-col lg:leading-normal leading-none text-lg space-y-5 lg:space-y-10 lg:col-span-1 items h-full">
                             <p className="first-letter:text-5xl first-letter:text-[#F0E4AF] first-letter:float-left">Qnsectetur adipiscing elit, sed do eiusm onsectetur adipiscing elit, eiusm od tempor ut labore.</p>
                             <p>Consectetur adipiscing elit, sed do eiusm onsectetur adipiscing elit, sed do eiusm od tempor ut labore sed adipiscing  do eiusm od tempor ut sed do eiusm.</p>
                         </div>
