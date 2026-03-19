@@ -73,7 +73,7 @@ const WhatWeDov2 = () => {
                                 <p className="text-[#9A9370]">Sed ut perspiciatis unde omnis iste natus ut perspic iatis unde omnis iste perspiciatis ut perspiciatis unde omnis iste natus.</p>
                             </div>
                         </div>
-                        <div ref={seventhSection} className="relative w-full lg:mt-10 h-100">
+                        <div ref={seventhSection} className="relative w-full lg:mt-10 h-75">
                             <Image
                                 src={"/images/third-section-second-image.jpg"}
                                 fill
