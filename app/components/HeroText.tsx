@@ -9,20 +9,25 @@ export default function HeroText() {
         const letters = gsap.utils.toArray<HTMLElement>(
             containerRef.current?.querySelectorAll(".letter") ?? []
         );
-        gsap.from(letters, {
-            y: 100,
-            opacity: 0,
-            duration: 1.5,
-            ease: "power4.out",
-            stagger: 0.08,
-            force3D: true,        // forces GPU acceleration
-            clearProps: "all",
-        });
+        gsap.fromTo(letters,
+            { y: "130%" },
+            {
+                y: "0%",
+                duration: 1.5,
+                ease: "power4.out",
+                stagger: 0.08,
+                force3D: true,
+            }
+        );
     }, []);
 
     const splitLetters = (text: string, extraClass = "") =>
         text.split("").map((char, i) => (
-            <span key={i} className="inline-block overflow-hidden pb-2">
+            <span
+                key={i}
+                className="inline-block"
+                style={{ overflow: "clip", overflowClipMargin: "30px", padding: "0 4px 12px", marginBottom: "-12px" }}
+            >
                 <span
                     className={`letter inline-block ${extraClass}`}
                     style={{ whiteSpace: char === " " ? "pre" : "normal" }}
@@ -33,15 +38,15 @@ export default function HeroText() {
         ));
 
     return (
-        <div ref={containerRef} className="overflow-hidden">
-            <p className="text-9xl font-[open-sans]">
+        <div ref={containerRef}>
+            <p className="text-9xl font-[open-sans] leading-none">
                 <span className="block">
                     {splitLetters("WONDER")}
                     <span className="italic">
-                        {splitLetters("for", "italic")}
+                        {splitLetters(" for", "italic")}
                     </span>
                 </span>
-                <span className="flex justify-end overflow-hidden">
+                <span className="flex justify-end">
                     {splitLetters("ART & HISTORY")}
                 </span>
             </p>

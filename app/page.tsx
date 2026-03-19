@@ -4,12 +4,23 @@ import HeroText from "./components/HeroText";
 
 export default function Home() {
   return (
-    <div className="font-[open-sans] text-[#F0E4AF] px-14">
-      <section className="h-screen w-full flex flex-col justify-between py-10">
-        <Header />
-        <HeroText/>
-       
-        <div className="flex items-center justify-between">
+    <div className="font-[open-sans] text-[#F0E4AF]">
+      <section className="h-screen w-full relative px-14 flex flex-col overflow-hidden justify-between py-10">
+        <Image
+          src="/images/item-004.jpg"
+          alt="background"
+          fill
+          className="object-cover animate-zoom overflow-hidden"
+          priority
+        />
+        <div className="relative z-50">
+          <Header />
+        </div>
+        <div className="relative z-10">
+          <HeroText />
+        </div>
+
+        <div className="flex relative z-50 items-center justify-between">
           <div className="max-w-xl space-y-2">
             <p className="text-2xl">
               EXPLORING ART'S ROLE IN SHAPING SOCIETY
