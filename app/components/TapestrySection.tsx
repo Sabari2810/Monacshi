@@ -9,7 +9,7 @@ export default function TapestrySection() {
     ]
 
     return (
-        <section className="py-20 lg:px-16 px-6 relative overflow-hidden">
+        <section className="py-20 relative overflow-hidden">
             <Image
                 src="/images/museum_home_texture2.jpg"
                 alt="background"
@@ -18,7 +18,7 @@ export default function TapestrySection() {
                 priority
             />
             {/* Big heading */}
-            <p className="text-4xl relative z-50 sm:text-6xl md:text-7xl lg:text-9xl xl:text-9xl font-cormorant text-center lg:text-left lg:leading-none">
+            <p className="text-4xl px-6 lg:px-16 relative z-50 sm:text-6xl md:text-7xl lg:text-9xl xl:text-9xl font-cormorant text-center lg:text-left lg:leading-none">
                 <span className="block">A TAPESTRY</span>
                 <span className="block lg:text-right">
                     <span className='italic'>
