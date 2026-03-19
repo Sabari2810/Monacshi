@@ -22,7 +22,7 @@ const HeroSection = () => {
 
             <div className="flex relative z-50 items-center justify-between">
                 <div className="max-w-lg space-y-2">
-                    <p className="text-2xl">
+                    <p className="lg:text-2xl text-lg">
                         EXPLORING ART'S ROLE <br /> IN SHAPING SOCIETY
                     </p>
                     <p>

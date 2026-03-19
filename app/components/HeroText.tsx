@@ -26,7 +26,12 @@ export default function HeroText() {
             <span
                 key={i}
                 className="inline-block"
-                style={{ overflow: "clip", overflowClipMargin: "30px", padding: "0 4px 12px", marginBottom: "-12px" }}
+                style={{ 
+                    overflow: "clip", 
+                    overflowClipMargin: "30px", 
+                    padding: "0 1px 8px",
+                    marginBottom: "-8px"
+                }}
             >
                 <span
                     className={`letter inline-block ${extraClass}`}
@@ -39,7 +44,14 @@ export default function HeroText() {
 
     return (
         <div ref={containerRef}>
-            <p className="text-9xl font-[open-sans] leading-none">
+            <p className="
+                text-4xl
+                sm:text-6xl
+                md:text-7xl
+                lg:text-8xl
+                xl:text-9xl
+                font-[open-sans] leading-none
+            ">
                 <span className="block">
                     {splitLetters("WONDER")}
                     <span className="italic">
