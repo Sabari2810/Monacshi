@@ -78,7 +78,7 @@ const Header = () => {
 
     return (
         <>
-            <div className={`flex font-[open-sans] fixed top-0 left-0 z-50 flex-row w-full items-center justify-between px-6 md:px-20 py-6 transition-all duration-300
+            <div className={`flex font-[open-sans] text-[#F0E4AF] fixed top-0 left-0 z-50 flex-row w-full items-center justify-between px-6 md:px-20 py-6 transition-all duration-300
                 ${scrolled ? "bg-[#191A11] shadow-md" : "bg-transparent"}
             `}>
                 <div className='flex items-center justify-between w-full'>

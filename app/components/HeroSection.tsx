@@ -4,7 +4,7 @@ import HeroText from './HeroText'
 
 const HeroSection = () => {
     return (
-        <section className="h-screen w-full relative px-6 lg:px-16 flex flex-col overflow-hidden justify-between py-4">
+        <section className="h-screen w-full relative px-6 lg:px-16 flex flex-col justify-between overflow-hidden py-4">
             <Image
                 src="/images/item-004.jpg"
                 alt="background"
@@ -13,7 +13,7 @@ const HeroSection = () => {
                 priority
             />
             <div className="relative z-60 pt-10">
-                <Header />
+                
             </div>
             <div className="relative z-10">
                 <HeroText />
