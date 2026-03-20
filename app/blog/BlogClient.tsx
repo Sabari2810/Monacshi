@@ -7,9 +7,116 @@ interface Post {
     title: string;
     excerpt: string;
     image_url: string;
+    media_type: 'image' | 'video' | 'none';
+    video_url: string;
     date: string;
     comments_count: number;
     category: string;
+}
+
+// ── Media block — swap this component if media display logic changes ──
+function MediaBlock({ post }: { post: Post }) {
+    if (post.media_type === 'video' && post.video_url) {
+        const isYoutube = post.video_url.includes('youtube.com') || post.video_url.includes('youtu.be');
+        const youtubeId = isYoutube
+            ? post.video_url.split('v=')[1]?.split('&')[0] || post.video_url.split('/').pop()
+            : null;
+
+        return (
+            <div className="relative w-full aspect-video overflow-hidden">
+                {isYoutube ? (
+                    <iframe
+                        src={`https://www.youtube.com/embed/${youtubeId}`}
+                        className="w-full h-full"
+                        allowFullScreen
+                    />
+                ) : (
+                    <video
+                        src={post.video_url}
+                        className="w-full h-full object-cover"
+                        muted
+                        playsInline
+                        onMouseEnter={e => (e.currentTarget as HTMLVideoElement).play()}
+                        onMouseLeave={e => {
+                            const v = e.currentTarget as HTMLVideoElement;
+                            v.pause();
+                            v.currentTime = 0;
+                        }}
+                    />
+                )}
+
+                {/* Video badge */}
+                <div className="absolute top-3 left-3 flex items-center gap-2 bg-black/60 px-3 py-1">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" className="text-[#F0E4AF]">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                    <span className="text-[9px] tracking-widest uppercase text-[#F0E4AF]">Video</span>
+                </div>
+            </div>
+        );
+    }
+
+    if (post.media_type === 'image' && post.image_url) {
+        return (
+            <div className="relative w-full h-56 overflow-hidden">
+                <Image
+                    src={post.image_url}
+                    fill
+                    alt={post.title}
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+            </div>
+        );
+    }
+
+    // no media — show a decorative placeholder
+    return (
+        <div className="w-full h-20 flex items-center justify-center border-b border-[#F0E4AF]/10">
+            <span className="font-cormorant italic text-2xl text-[#F0E4AF]/20">✦</span>
+        </div>
+    );
+}
+
+// ── Sidebar recent post thumbnail ──
+function RecentThumb({ post }: { post: Post }) {
+    if (post.media_type === 'video' && post.video_url) {
+        const isYoutube = post.video_url.includes('youtube.com') || post.video_url.includes('youtu.be');
+        const youtubeId = isYoutube
+            ? post.video_url.split('v=')[1]?.split('&')[0] || post.video_url.split('/').pop()
+            : null;
+
+        return (
+            <div className="relative w-16 h-12 shrink-0 overflow-hidden bg-[#F0E4AF]/5 flex items-center justify-center">
+                {isYoutube ? (
+                    <img
+                        src={`https://img.youtube.com/vi/${youtubeId}/mqdefault.jpg`}
+                        alt={post.title}
+                        className="w-full h-full object-cover"
+                    />
+                ) : (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="text-[#9A9370]">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                )}
+                <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" className="text-white">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="relative w-16 h-12 shrink-0 overflow-hidden">
+            <Image
+                src={post.image_url || '/images/item-004.jpg'}
+                fill
+                alt={post.title}
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+        </div>
+    );
 }
 
 export default function BlogClient({ posts }: { posts: Post[] }) {
@@ -39,10 +146,10 @@ export default function BlogClient({ posts }: { posts: Post[] }) {
             {/* Body */}
             <div className="flex max-w-6xl m-auto flex-col md:flex-row px-6 md:px-16 py-16 gap-16 items-start">
 
-                {/* LEFT — blog list 70% */}
-                <div className="w-full md:w-[70%] grid grid-cols-1 sm:grid-cols-1 gap-10">
+                {/* LEFT — blog list */}
+                <div className="w-full md:w-[70%] grid grid-cols-1 gap-10">
                     {filtered.length === 0 ? (
-                        <p className="text-[#9A9370] tracking-widest uppercase text-sm col-span-2">
+                        <p className="text-[#9A9370] tracking-widest uppercase text-sm">
                             No posts found.
                         </p>
                     ) : (
@@ -52,17 +159,10 @@ export default function BlogClient({ posts }: { posts: Post[] }) {
                                 href={`/blog/${post.id}`}
                                 className="group block border border-[#F0E4AF]/10 hover:border-[#F0E4AF]/30 transition-all duration-300"
                             >
-                                {/* Image on top */}
-                                <div className="relative w-full h-56 overflow-hidden">
-                                    <Image
-                                        src={post.image_url || '/images/item-004.jpg'}
-                                        fill
-                                        alt={post.title}
-                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                    />
-                                </div>
+                                {/* Dynamic media */}
+                                <MediaBlock post={post} />
 
-                                {/* Content below */}
+                                {/* Content */}
                                 <div className="p-6 space-y-3">
                                     {post.category && (
                                         <p className="text-xs tracking-widest uppercase text-[#9A9370]">
@@ -98,7 +198,7 @@ export default function BlogClient({ posts }: { posts: Post[] }) {
                     )}
                 </div>
 
-                {/* RIGHT — sticky sidebar 30% */}
+                {/* RIGHT — sticky sidebar */}
                 <div className="w-full md:w-[30%] md:sticky md:top-24 space-y-10">
 
                     {/* Search */}
@@ -159,14 +259,7 @@ export default function BlogClient({ posts }: { posts: Post[] }) {
                                     href={`/blog/${post.id}`}
                                     className="group flex gap-3 items-start"
                                 >
-                                    <div className="relative w-16 h-12 flex-shrink-0 overflow-hidden">
-                                        <Image
-                                            src={post.image_url || '/images/item-004.jpg'}
-                                            fill
-                                            alt={post.title}
-                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                        />
-                                    </div>
+                                    <RecentThumb post={post} />
                                     <div>
                                         <p className="text-sm font-cormorant italic leading-snug group-hover:text-white transition-colors duration-200">
                                             {post.title}
@@ -186,5 +279,5 @@ export default function BlogClient({ posts }: { posts: Post[] }) {
                 </div>
             </div>
         </main>
-    )
+    );
 }
