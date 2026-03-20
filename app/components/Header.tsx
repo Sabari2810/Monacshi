@@ -96,11 +96,11 @@ const Header = () => {
                     </div>
 
                     {/* Desktop button */}
-                    <button className='hidden md:block border-2 border-[#F0E4AF] text-[#F0E4AF] hover:bg-[#F0E4AF] 
+                    <a href='/contact' className='hidden md:block border-2 border-[#F0E4AF] text-[#F0E4AF] hover:bg-[#F0E4AF] 
                         hover:text-[#27281B] border-solid px-8 py-2 cursor-pointer transition ease-in-out 
                         font-[open-sans] font-semibold text-lg'>
                         Let's Talk
-                    </button>
+                    </a>
                     {/* Mobile hamburger */}
                     <button
                         className='relative flex md:hidden items-center justify-center w-10 h-10 cursor-pointer'
