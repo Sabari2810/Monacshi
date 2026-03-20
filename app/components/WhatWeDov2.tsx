@@ -64,7 +64,7 @@ const WhatWeDov2 = () => {
                         alt=""
                     />
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-2 w-full">
                     <div className="flex flex-col items-center">
                         <div ref={sixthSection} className="lg:pb-20">
                             <div className="space-y-2">
@@ -73,11 +73,11 @@ const WhatWeDov2 = () => {
                                 <p className="text-[#9A9370]">Sed ut perspiciatis unde omnis iste natus ut perspic iatis unde omnis iste perspiciatis ut perspiciatis unde omnis iste natus.</p>
                             </div>
                         </div>
-                        <div ref={seventhSection} className="relative w-full lg:mt-10 h-75">
+                        <div ref={seventhSection} className="relative w-full lg:mt-10 h-100">
                             <Image
                                 src={"/images/third-section-second-image.jpg"}
                                 fill
-                                className="object-contain object-top pt-6 lg:pt-0 lg:object-left right-0"
+                                className="object-top w-full pt-6 lg:pt-0 lg:object-left right-0"
                                 priority
                                 alt=""
                             />
